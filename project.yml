@@ -1,0 +1,92 @@
+name: ShotPDF
+options:
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: ja
+  knownRegions: [ja, en, zh-Hans, zh-Hant]
+settings:
+  base:
+    APP_ID: com.hgsldswk.shotpdf
+    APP_STORE_ID: "__APP_STORE_ID__"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.0"
+    CODE_SIGN_STYLE: Automatic
+targets:
+  ShotPDF:
+    type: application
+    platform: iOS
+    sources: [ShotPDF, Shared]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(APP_ID)
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        Release:
+          CODE_SIGN_STYLE: Manual
+          CODE_SIGN_IDENTITY: Apple Distribution
+          PROVISIONING_PROFILE_SPECIFIER: ShotPDF AppStore
+    info:
+      path: ShotPDF/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDisplayName: スクショPDFまとめ
+        CFBundleDevelopmentRegion: ja
+        UILaunchScreen: {}
+        UIRequiresFullScreen: true
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
+        APP_STORE_ID: $(APP_STORE_ID)
+  ShotPDFTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: ShotPDFTests
+        excludes: [Fixtures]
+      - path: ShotPDFTests/Fixtures
+        buildPhase: resources
+    dependencies:
+      - target: ShotPDF
+      - sdk: StoreKitTest.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(APP_ID).tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/ShotPDF.app/ShotPDF
+        BUNDLE_LOADER: $(TEST_HOST)
+  ShotPDFUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [ShotPDFUITests]
+    dependencies:
+      - target: ShotPDF
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(APP_ID).uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: ShotPDF
+schemes:
+  ShotPDF:
+    build:
+      targets:
+        ShotPDF: all
+        ShotPDFTests: [test]
+    run:
+      storeKitConfiguration: ShotPDFTests/Fixtures/ShotPDF.storekit
+    test:
+      config: Debug
+      targets: [ShotPDFTests]
+      environmentVariables:
+        SHOTPDF_HOSTED_TESTS: "1"
+  ShotPDFUI:
+    build:
+      targets:
+        ShotPDF: all
+        ShotPDFUITests: [test]
+    test:
+      config: Debug
+      targets: [ShotPDFUITests]

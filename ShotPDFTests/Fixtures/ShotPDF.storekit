@@ -1,0 +1,23 @@
+{
+  "identifier": "53401929",
+  "nonRenewingSubscriptions": [],
+  "products": [
+    {
+      "displayPrice": "2.99",
+      "familyShareable": false,
+      "internalID": "6517062083",
+      "localizations": [
+        {"description": "Unlock unlimited images and advanced layout tools", "displayName": "Lifetime Upgrade", "locale": "en_US"},
+        {"description": "枚数制限を解除し、長尺分割や余白設定を使えます", "displayName": "プレミアム買い切り", "locale": "ja_JP"},
+        {"description": "一次解锁高级排版功能", "displayName": "高级版买断", "locale": "zh_CN"},
+        {"description": "一次解鎖進階版面功能", "displayName": "進階版買斷", "locale": "zh_TW"}
+      ],
+      "productID": "com.hgsldswk.shotpdf.pro",
+      "referenceName": "Lifetime Upgrade",
+      "type": "NonConsumable"
+    }
+  ],
+  "settings": {"_failTransactionsEnabled": false, "_locale": "ja_JP", "_storefront": "JPN"},
+  "subscriptionGroups": [],
+  "version": {"major": 3, "minor": 0}
+}
